@@ -63,9 +63,9 @@ const currentYear = computed(() => {
           <IContainer id="main-container" class="_margin-top:1">
             <IButton v-show="navigationHistory.length" @click="safeGoBack" circle size="sm" color="primary" class="button-back _text-decoration:none!"><</IButton>
             <NuxtPage :key="route.fullPath" />
-            <div class="back-button-container" v-if="!skipHistory">
-              <IButton v-show="navigationHistory.length" @click="safeGoBack" circle size="sm" color="primary" class="button-back _text-decoration:none!"><</IButton>
-            </div>
+<!--            <div class="back-button-container" v-if="!skipHistory">-->
+<!--              <IButton v-show="navigationHistory.length" @click="safeGoBack" circle size="sm" color="primary" class="button-back _text-decoration:none!"><</IButton>-->
+<!--            </div>-->
           </IContainer>
         </ILayoutContent>
       </ILayout>
