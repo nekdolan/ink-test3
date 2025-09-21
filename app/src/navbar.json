@@ -1,0 +1,34 @@
+[
+  {
+    "label": "INTRODUCTION",
+    "id": "introduction",
+    "items": [
+      {
+        "label": "H O M E",
+        "uri": "/"
+      },
+      {
+        "label": "test1",
+        "uri": "/test1"
+      },
+      {
+        "label": "test2",
+        "uri": "/test2"
+      },
+      {
+        "label": "test3",
+        "uri": "/test3"
+      }
+    ]
+  },
+  {
+    "label": "VIDEOS",
+    "id": "videos",
+    "items": [
+      {
+        "label": "video-test1",
+        "uri": "/video-test1"
+      }
+    ]
+  }
+]

@@ -1,0 +1,198 @@
+<script setup>
+import Sidebar from "~/components/sidebar.vue";
+const appConfig = useAppConfig();
+const { siteUrl } = appConfig;
+const route = useRoute();
+const router = useRouter();
+const navigationHistory = ref([]);
+const skipHistory = ref(false);
+const open = ref(false);
+
+watch(() => route.fullPath, (newRoute, oldRoute) => {
+  if (skipHistory.value) {
+    skipHistory.value = false;
+    return;
+  }
+  navigationHistory.value.push(oldRoute)
+})
+const safeGoBack = (event) => {
+  skipHistory.value = true;
+  event.target.blur();
+  const previousRoute = navigationHistory.value.pop();
+  if (previousRoute) {
+    router.push(previousRoute);
+  } else {
+    router.push('/');
+  }
+}
+const currentYear = computed(() => {
+  const date = new Date();
+  return date.getFullYear();
+})
+</script>
+
+<template>
+  <ILayout class="_height:100vh">
+    <Sidebar
+        v-model="open"
+        :collapse="true"
+        collapse-position="fixed"
+        size="lg"
+        screen-type="mobile"
+        @close="open = false"
+        class="_xl:hidden"
+    />
+    <ILayoutHeader>
+      <IContainer class="header-container">
+        <INavbar fluid :collapse="false" color="transparent">
+          <INavbarBrand to="/">&nbsp;</INavbarBrand>
+          <IHamburgerMenu v-model="open" animation="close" class="_xl:hidden" />
+        </INavbar>
+      </IContainer>
+    </ILayoutHeader>
+    <IContainer>
+      <ILayout vertical class="main-layout">
+        <ILayoutAside key="aside1" class="_xl:visible _hidden">
+          <Sidebar
+              screen-type="desktop"
+              :collapse="false"
+              size="lg"
+          />
+        </ILayoutAside>
+        <ILayoutContent>
+          <IContainer id="main-container" class="_margin-top:1">
+            <IButton v-show="navigationHistory.length" @click="safeGoBack" circle size="sm" color="primary" class="button-back _text-decoration:none!"><</IButton>
+            <NuxtPage :key="route.fullPath" />
+            <div class="back-button-container" v-if="!skipHistory">
+              <IButton v-show="navigationHistory.length" @click="safeGoBack" circle size="sm" color="primary" class="button-back _text-decoration:none!"><</IButton>
+            </div>
+          </IContainer>
+        </ILayoutContent>
+      </ILayout>
+    </IContainer>
+    <ILayoutFooter>
+      <IContainer>
+        <IRow>
+          <IColumn class="_font-size:xs _margin-top:2 _margin-x:1 _margin-bottom:1">
+            This entire site is Copyright © 2025-{{ currentYear }}, Inc. All rights reserved.<br />
+<!--            <nuxt-link to="/disclaimer" class="_color:danger">DISCLAIMER</nuxt-link><br />-->
+            URL: {{ siteUrl }}
+          </IColumn>
+        </IRow>
+      </IContainer>
+    </ILayoutFooter>
+  </ILayout>
+</template>
+
+<style lang="scss">
+@import '@inkline/inkline/css/mixins/_index.scss';
+.hamburger-menu {
+  background-color: #fff;
+  --hamburger-menu--padding: 5px;
+}
+.main-layout {
+  .info-toast {
+    margin-left: -52px;
+    padding-left: 52px;
+    border-top-left-radius: 0;
+
+    @include breakpoint-down('md') {
+      padding-left: initial;
+      margin-left: initial;
+      border-top-left-radius: 4px;
+    }
+    & > .toast-content {
+      overflow: hidden;
+      text-wrap: nowrap;
+      text-overflow: ellipsis;
+    }
+    & + #main-container > .button-back:first-child {
+      margin-top: 56px;
+    }
+  }
+  .info-next .sidebar {
+    border-top-right-radius: 0;
+  }
+}
+.navbar {
+  height: 130px;
+  --navbar--border-width: 0;
+  --navbar--box-shadow: none;
+  .navbar-brand {
+    width: 500px;
+    height: 100px;
+    @include breakpoint-down('sm') {
+      width: 220px;
+      margin-right: 0;
+      padding-right: 0;
+    }
+  }
+  .station {
+    margin-top: -15px;
+    img:hover {
+      filter: drop-shadow(0 0 0.75rem #0093f6);
+    }
+  }
+}
+body {
+  background-image: url('/images/layout/black.png');
+  background-repeat: repeat-x;
+  background-position: top left;
+}
+body > div > main.layout {
+  background-image: url('/images/layout/earth-in-space-bg.webp');
+  background-repeat: no-repeat;
+  background-position: top center;
+}
+.header-container {
+  background-image: url('/images/layout/logo-title.webp');
+  background-repeat: no-repeat;
+  background-position: left top;
+  background-size: contain;
+  height: 130px;
+  @include breakpoint-up('md') {
+    background-image: url('/images/layout/logo-title.webp');
+  }
+}
+#main-container .back-button-container {
+  position: relative;
+  & > .button-back {
+    top: inherit;
+    bottom: -20px;
+    right: -5px;
+  }
+}
+#main-container .button-back {
+  position: absolute;
+  top: 20px;
+  right: 15px;
+  & + .back-button-container {
+    display: none;
+  }
+  & + * {
+    padding-right: 40px;
+    &.content-page, &[data-content-id] {
+      padding-right: initial;
+      & > *:first-child {
+        padding-right: 40px;
+      }
+    }
+  }
+}
+.main-layout {
+  background-color: #fff;
+  border-radius: 5px;
+}
+p {
+  margin-top: var(--p--margin-bottom, var(--margin-bottom));
+}
+p.title, span.title {
+  font-size: 1.5rem;
+}
+img[hspace] {
+  padding-right: 20px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+</style>
