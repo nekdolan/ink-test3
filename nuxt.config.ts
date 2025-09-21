@@ -1,14 +1,21 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 
 export default defineNuxtConfig({
+    app: {
+        baseURL: '/ink-test/',
+    },
     modules: [
         '@inkline/plugin/nuxt',
-        "@nuxt/image"
+        '@nuxt/image'
     ],
     compatibilityDate: '2025-07-15',
 
     devServer: {
         port: 3004
+    },
+
+    nitro: {
+        preset: 'github_pages' // makes output compatible with GitHub Pages
     },
 
     vite: {
