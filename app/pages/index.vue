@@ -1,3 +1,5 @@
+<script setup>
+</script>
 <template>
-  <div>HOME</div>
+  <h1>Work in Progress</h1>
 </template>

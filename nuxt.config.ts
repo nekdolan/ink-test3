@@ -6,6 +6,7 @@ export default defineNuxtConfig({
     },
     modules: [
         '@inkline/plugin/nuxt',
+        '@nuxt/content',
         '@nuxt/image'
     ],
     compatibilityDate: '2025-07-15',
