@@ -61,11 +61,8 @@ const currentYear = computed(() => {
         </ILayoutAside>
         <ILayoutContent>
           <IContainer id="main-container" class="_margin-top:1">
-            <IButton v-show="navigationHistory.length" @click="safeGoBack" circle size="sm" color="primary" class="button-back _text-decoration:none!"><</IButton>
+            <IButton v-show="navigationHistory.length" @click="safeGoBack" circle size="sm" color="dark" class="button-back _text-decoration:none!"><</IButton>
             <NuxtPage :key="route.fullPath" />
-<!--            <div class="back-button-container" v-if="!skipHistory">-->
-<!--              <IButton v-show="navigationHistory.length" @click="safeGoBack" circle size="sm" color="primary" class="button-back _text-decoration:none!"><</IButton>-->
-<!--            </div>-->
           </IContainer>
         </ILayoutContent>
       </ILayout>
@@ -74,8 +71,7 @@ const currentYear = computed(() => {
       <IContainer>
         <IRow>
           <IColumn class="_font-size:xs _margin-top:2 _margin-x:1 _margin-bottom:1">
-            This entire site is Copyright © 2025-{{ currentYear }}, Inc. All rights reserved.<br />
-<!--            <nuxt-link to="/disclaimer" class="_color:danger">DISCLAIMER</nuxt-link><br />-->
+            This entire site is Copyright ©Penny Bradley 2025-{{ currentYear }}, Inc. All rights reserved.<br />
             URL: {{ siteUrl }}
           </IColumn>
         </IRow>
@@ -90,30 +86,6 @@ const currentYear = computed(() => {
   background-color: #fff;
   --hamburger-menu--padding: 5px;
 }
-.main-layout {
-  .info-toast {
-    margin-left: -52px;
-    padding-left: 52px;
-    border-top-left-radius: 0;
-
-    @include breakpoint-down('md') {
-      padding-left: initial;
-      margin-left: initial;
-      border-top-left-radius: 4px;
-    }
-    & > .toast-content {
-      overflow: hidden;
-      text-wrap: nowrap;
-      text-overflow: ellipsis;
-    }
-    & + #main-container > .button-back:first-child {
-      margin-top: 56px;
-    }
-  }
-  .info-next .sidebar {
-    border-top-right-radius: 0;
-  }
-}
 .navbar {
   height: 130px;
   --navbar--border-width: 0;
@@ -125,12 +97,6 @@ const currentYear = computed(() => {
       width: 220px;
       margin-right: 0;
       padding-right: 0;
-    }
-  }
-  .station {
-    margin-top: -15px;
-    img:hover {
-      filter: drop-shadow(0 0 0.75rem #0093f6);
     }
   }
 }
@@ -145,7 +111,7 @@ body > div > main.layout {
   background-position: top center;
 }
 .header-container {
-  background-image: url('/images/layout/logo-title.webp');
+  background-image: url('/images/layout/logo-title-small.webp');
   background-repeat: no-repeat;
   background-position: left top;
   background-size: contain;
@@ -154,29 +120,19 @@ body > div > main.layout {
     background-image: url('/images/layout/logo-title.webp');
   }
 }
-#main-container .back-button-container {
-  position: relative;
-  & > .button-back {
-    top: inherit;
-    bottom: -20px;
-    right: -5px;
-  }
-}
 #main-container .button-back {
   position: absolute;
   top: 20px;
   right: 15px;
+
   & + .back-button-container {
     display: none;
   }
-  & + * {
-    padding-right: 40px;
-    &.content-page, &[data-content-id] {
-      padding-right: initial;
-      & > *:first-child {
-        padding-right: 40px;
-      }
-    }
+}
+.layout-content {
+  margin-right: 50px;
+  @include breakpoint-down('lg') {
+    margin-right: 0;
   }
 }
 .main-layout {

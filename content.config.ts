@@ -9,6 +9,7 @@ export default defineContentConfig({
       type: 'page',
       schema: z.object({
         title: z.string(),
+        short: z.string(),
         category: z.string(),
         public: z.boolean(),
         vid: z.string(),

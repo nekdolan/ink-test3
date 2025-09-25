@@ -1,4 +1,5 @@
 <script setup>
+import { formatDate } from "~/src/date.js";
 const route = useRoute();
 const imageModalSrc = ref('');
 const imageModalSrcReal = ref('');
@@ -33,13 +34,16 @@ watch(() => imageModal.value, () => {
 
 </script>
 <template>
-  <IContainer fluid class="star-background">
+  <IContainer fluid>
     <IContainer v-if="doc">
       <h1 class="d5 _margin-top:3 _margin-bottom:2 _text-align:center">{{ doc.title }}</h1>
       <div class="_embed:16:9!">
         <iframe :src="`https://rumble.com/embed/${doc.vid}/?pub=4`"></iframe>
       </div>
       <ContentRenderer :value="doc" class="content-doc" />
+      <div>
+        Uploaded: {{ formatDate(doc.date) }}
+      </div>
     </IContainer>
     <IModal v-model="imageModal" size="lg">
       <template #header> Image Preview </template>
