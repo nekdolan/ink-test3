@@ -28,7 +28,6 @@ const openCategory = computed(() => {
 });
 const open = ref([]);
 const props = defineProps(['screenType']);
-const navbar = categories;
 function isPathUrl(path = '') {
   return path.startsWith('http');
 }
@@ -43,7 +42,7 @@ function isPathUrl(path = '') {
         color="transparent"
         size="md"
         :key="category.id"
-        v-for="category in navbar"
+        v-for="category in categories"
       >
         <ICollapsibleItem :title="category.label" :name="category.id">
           <INavItem
