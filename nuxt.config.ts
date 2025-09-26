@@ -4,7 +4,7 @@ import path from 'path'
 
 export default defineNuxtConfig({
     app: {
-        baseURL: '/ink-test/',
+        baseURL: '/ink-test3/',
     },
     modules: [
         '@inkline/plugin/nuxt',
