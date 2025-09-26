@@ -10,9 +10,9 @@ function isMobile() {
   return /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
 }
 
-// const { data: doc } = await useAsyncData(route.path, () => {
-//   return queryCollection('videos').path(route.path).first();
-// })
+const { data: doc } = await useAsyncData(route.path, () => {
+  return queryCollection('videos').path(route.path).first();
+})
 //
 // const imageModal = ref(false);
 // watch(() => imageModalSrc.value, () => {
@@ -35,7 +35,7 @@ function isMobile() {
 </script>
 <template>
   <IContainer fluid>
-    TEST
+    TEST {{ doc.title }}
 <!--    <IContainer v-if="doc">-->
 <!--      <h1 class="d5 _margin-top:3 _margin-bottom:2 _text-align:center">{{ doc.title }}</h1>-->
 <!--      <div class="_embed:16:9!">-->

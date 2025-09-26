@@ -23,7 +23,7 @@ const route = useRoute();
 //   });
 // });
 const { data: categories } = await useAsyncData('categories', () => useCategories());
-const category = categories.value.find(({items}) => items.find(({uri}) => route.path.endsWith(uri)));
+const category = categories.value.find(({items}) => items.find(({uri}) => route.path === uri));
 const open = ref([category ? category.id : categories.value[0].id]);
 const props = defineProps(['screenType']);
 const navbar = computed(() => {
@@ -41,6 +41,7 @@ const emit = defineEmits(['close']);
 
 <template>
   <ISidebar color="dark" :class="props.screenType">
+    {{ route.path }} {{ open }}
     <INav vertical size="md">
       <ICollapsible
           v-model="open"
@@ -57,7 +58,7 @@ const emit = defineEmits(['close']);
               :target="isPathUrl(item.uri) ? '_blank' : undefined"
               :key="item.uri"
               v-for="item in category.items"
-          > {{ item.label }} </INavItem>
+          > {{ item.label }} {{ item.uri }}</INavItem>
         </ICollapsibleItem>
       </ICollapsible>
       <nuxt-link to="/test" @click="emit('close')" class="_max-width:50%">
