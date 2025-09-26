@@ -17,10 +17,6 @@ export default defineNuxtConfig({
         port: 3004
     },
 
-    nitro: {
-        preset: 'github_pages' // makes output compatible with GitHub Pages
-    },
-
     vite: {
         css: {
             preprocessorOptions: {
