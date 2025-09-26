@@ -22,11 +22,8 @@ const {data: categories} = await useAsyncData('categories', async () => {
     }
   });
 });
-const openCategory = computed(() => {
-  const category = categories.value.find(({items}) => items.find(({uri}) => route.path.endsWith(uri)));
-  return [category ? category.id : categories.value[0].id];
-});
-const open = ref([]);
+const category = categories.value.find(({items}) => items.find(({uri}) => route.path.endsWith(uri)));
+const open = ref([category ? category.id : categories.value[0].id]);
 const props = defineProps(['screenType']);
 function isPathUrl(path = '') {
   return path.startsWith('http');
@@ -37,8 +34,7 @@ function isPathUrl(path = '') {
   <ISidebar color="dark" :class="props.screenType">
     <INav vertical size="md">
       <ICollapsible
-        :model-value="open.length ? open : openCategory"
-        @update:model-value="val => open = val"
+        v-model="open"
         color="transparent"
         size="md"
         :key="category.id"
