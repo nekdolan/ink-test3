@@ -60,11 +60,11 @@ const emit = defineEmits(['close']);
           > {{ item.label }} </INavItem>
         </ICollapsibleItem>
       </ICollapsible>
-      <nuxt-link to="/helping" @click="emit('close')" class="_max-width:50%">
-        <nuxt-img loading="lazy" src="/images/buttons/btn_donate.jpg" class="_margin-top:1 _image:fluid" />
+      <nuxt-link to="/test" @click="emit('close')" class="_max-width:50%">
+        T
       </nuxt-link>
-      <nuxt-link to="/newslettersignup" @click="emit('close')" class="_max-width:50%">
-        <nuxt-img loading="lazy" src="/images/buttons/btn_newsletter.jpg" class="_margin-top:1 _image:fluid" />
+      <nuxt-link to="/test" @click="emit('close')" class="_max-width:50%">
+        T2
       </nuxt-link>
     </INav>
   </ISidebar>
