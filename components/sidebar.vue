@@ -61,10 +61,10 @@ const emit = defineEmits(['close']);
         </ICollapsibleItem>
       </ICollapsible>
       <nuxt-link to="/test" @click="emit('close')" class="_max-width:50%">
-        <nuxt-img loading="lazy" src="/images/buttons/btn_donate.jpg" class="_margin-top:1 _image:fluid" />
+        <nuxt-img loading="lazy" src="/images/layout/black.png" class="_margin-top:1 _image:fluid" />
       </nuxt-link>
       <nuxt-link to="/test" @click="emit('close')" class="_max-width:50%">
-        <nuxt-img loading="lazy" src="/images/buttons/btn_newsletter.jpg" class="_margin-top:1 _image:fluid" />
+        <nuxt-img loading="lazy" src="/images/layout/black.png" class="_margin-top:1 _image:fluid" />
       </nuxt-link>
     </INav>
   </ISidebar>
