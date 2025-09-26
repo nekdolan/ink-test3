@@ -1,27 +1,28 @@
 <script setup>
 const route = useRoute();
-const appConfig = useAppConfig();
+// const appConfig = useAppConfig();
 
-const {data: categories} = await useAsyncData('categories', async () => {
-  const videos = await queryCollection('videos')
-      .orWhere(query => query
-          .where('public', '=', true)
-      )
-      .select('path', 'title', 'date', 'category', 'short')
-      .order('date', 'DESC')
-      .all();
-  return appConfig.navbar.map(category => {
-    const list = videos.filter(video => category.id === video.category);
-    const navVideos = list.map(video => ({
-      "label": video.short,
-      "uri": video.path
-    }))
-    return {
-      ...category,
-      items: [...category.items, ...navVideos]
-    }
-  });
-});
+// const {data: categories} = await useAsyncData('categories', async () => {
+//   const videos = await queryCollection('videos')
+//       .orWhere(query => query
+//           .where('public', '=', true)
+//       )
+//       .select('path', 'title', 'date', 'category', 'short')
+//       .order('date', 'DESC')
+//       .all();
+//   return appConfig.navbar.map(category => {
+//     const list = videos.filter(video => category.id === video.category);
+//     const navVideos = list.map(video => ({
+//       "label": video.short,
+//       "uri": video.path
+//     }))
+//     return {
+//       ...category,
+//       items: [...category.items, ...navVideos]
+//     }
+//   });
+// });
+const { data: categories } = await useAsyncData('categories', () => useCategories());
 const category = categories.value.find(({items}) => items.find(({uri}) => route.path.endsWith(uri)));
 const open = ref([category ? category.id : categories.value[0].id]);
 const props = defineProps(['screenType']);
