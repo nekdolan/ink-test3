@@ -1,9 +1,9 @@
 <script setup>
 import { formatDate } from "~/src/date.js";
 const route = useRoute();
-const imageModalSrc = ref('');
-const imageModalSrcReal = ref('');
-provide('image', imageModalSrc);
+// const imageModalSrc = ref('');
+// const imageModalSrcReal = ref('');
+// provide('image', imageModalSrc);
 
 function isMobile() {
   const userAgent = navigator.userAgent || navigator.vendor || window.opera;
@@ -13,24 +13,24 @@ function isMobile() {
 // const { data: doc } = await useAsyncData(route.path, () => {
 //   return queryCollection('videos').path(route.path).first();
 // })
-
-const imageModal = ref(false);
-watch(() => imageModalSrc.value, () => {
-  if (imageModalSrc.value !== '') {
-    if (isMobile()) {
-      window.open(imageModalSrc.value);
-      imageModalSrc.value = '';
-    } else {
-      imageModal.value = true;
-    }
-  }
-})
-watch(() => imageModal.value, () => {
-  if (imageModal.value === false) {
-    imageModalSrcReal.value = imageModalSrc.value;
-    imageModalSrc.value = '';
-  }
-})
+//
+// const imageModal = ref(false);
+// watch(() => imageModalSrc.value, () => {
+//   if (imageModalSrc.value !== '') {
+//     if (isMobile()) {
+//       window.open(imageModalSrc.value);
+//       imageModalSrc.value = '';
+//     } else {
+//       imageModal.value = true;
+//     }
+//   }
+// })
+// watch(() => imageModal.value, () => {
+//   if (imageModal.value === false) {
+//     imageModalSrcReal.value = imageModalSrc.value;
+//     imageModalSrc.value = '';
+//   }
+// })
 
 </script>
 <template>
@@ -46,10 +46,10 @@ watch(() => imageModal.value, () => {
 <!--        Uploaded: {{ formatDate(doc.date) }}-->
 <!--      </div>-->
 <!--    </IContainer>-->
-    <IModal v-model="imageModal" size="lg">
-      <template #header> Image Preview </template>
-      <NuxtImg densities="1x" :src="imageModalSrc || imageModalSrcReal" class="_image:responsive" />
-    </IModal>
+<!--    <IModal v-model="imageModal" size="lg">-->
+<!--      <template #header> Image Preview </template>-->
+<!--      <NuxtImg densities="1x" :src="imageModalSrc || imageModalSrcReal" class="_image:responsive" />-->
+<!--    </IModal>-->
   </IContainer>
 </template>
 
