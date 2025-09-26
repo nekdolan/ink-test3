@@ -21,9 +21,11 @@ const categories = computed(() => appConfig.navbar.map(category => {
     items: [...category.items, ...navVideos]
   }
 }));
-
-const openCategory = categories.value.find(({items}) => items.find(({uri}) => route.path.endsWith(uri) ))
-const open = ref([openCategory ? openCategory.id : categories.value[0].id]);
+const openCategory = computed(() => {
+  const category = categories.value.find(({items}) => items.find(({uri}) => route.path.endsWith(uri)));
+  return [category ? category.id : categories.value[0].id];
+});
+const open = ref([]);
 const props = defineProps(['screenType']);
 const navbar = categories;
 function isPathUrl(path = '') {
@@ -35,7 +37,8 @@ function isPathUrl(path = '') {
   <ISidebar color="dark" :class="props.screenType">
     <INav vertical size="md">
       <ICollapsible
-        v-model="open"
+        :model-value="open.length ? open : openCategory"
+        @update:model-value="val => open = val"
         color="transparent"
         size="md"
         :key="category.id"
