@@ -26,6 +26,13 @@ const { data: categories } = await useAsyncData('categories', () => useCategorie
 const category = categories.value.find(({items}) => items.find(({uri}) => route.path.endsWith(uri)));
 const open = ref([category ? category.id : categories.value[0].id]);
 const props = defineProps(['screenType']);
+const navbar = computed(() => {
+  return categories.value.map(category => {
+    return {
+      ...category,
+    }
+  })
+})
 function isPathUrl(path = '') {
   return path.startsWith('http');
 }
