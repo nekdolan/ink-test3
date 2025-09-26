@@ -78,8 +78,7 @@ export default defineNuxtConfig({
                 const options = {
                     color: 'light',
                     colorMode: 'light',
-                    colorModeStrategy: null,
-                    renderMode: 'universal'
+                    colorModeStrategy: null
                 };
                 content = content.replace(
                   /<%= JSON\.stringify\(options, 4\) %>/g,
@@ -95,8 +94,7 @@ export default defineNuxtConfig({
         globals: {
             color: 'light',
             colorMode: 'light',
-            colorModeStrategy: null,
-            renderMode: 'universal'
+            colorModeStrategy: null
         }
     },
 
