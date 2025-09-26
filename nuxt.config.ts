@@ -1,4 +1,6 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
+import fs from 'fs'
+import path from 'path'
 
 export default defineNuxtConfig({
     app: {
@@ -35,40 +37,66 @@ export default defineNuxtConfig({
                     }
                 }
             }
-        },
-        plugins: [
-            {
-                name: 'inkline-template-fix',
-                enforce: 'pre',
-                transform(code, id) {
-                    // Adjust if your path looks slightly different in the error
-                    if (id.includes('virtual:nuxt:') && id.includes('inkline.mjs')) {
-                        // Replace the EJS placeholder with static JSON
-                        const options = {
-                            color: 'light',
-                            colorMode: 'light',
-                            colorModeStrategy: null,
-                            renderMode: 'universal'
-                        }
-                        return {
-                            code: code.replace(
-                              /<%= JSON\.stringify\(options, 4\) %>/g,
-                              JSON.stringify(options, null, 4)
-                            ),
-                            map: null
-                        }
-                    }
-                    return null
-                }
+        }
+        // plugins: [
+        //     {
+        //         name: 'inkline-template-fix',
+        //         enforce: 'pre',
+        //         transform(code, id) {
+        //             // Adjust if your path looks slightly different in the error
+        //             if (id.includes('virtual:nuxt:') && id.includes('inkline.mjs')) {
+        //                 // Replace the EJS placeholder with static JSON
+        //                 const options = {
+        //                     color: 'light',
+        //                     colorMode: 'light',
+        //                     colorModeStrategy: null,
+        //                     renderMode: 'universal'
+        //                 }
+        //                 return {
+        //                     code: code.replace(
+        //                       /<%= JSON\.stringify\(options, 4\) %>/g,
+        //                       JSON.stringify(options, null, 4)
+        //                     ),
+        //                     map: null
+        //                 }
+        //             }
+        //             return null
+        //         }
+        //     }
+        // ]
+    },
+
+    hooks: {
+        // 'content:file:afterParse'(ctx) {
+        //     console.log('hook');
+        //     console.log(ctx);
+        // },
+        'build:done': () => {
+            const inklinePath = path.resolve('.nuxt', 'inkline.mjs');
+            if (fs.existsSync(inklinePath)) {
+                let content = fs.readFileSync(inklinePath, 'utf-8');
+                const options = {
+                    color: 'light',
+                    colorMode: 'light',
+                    colorModeStrategy: null,
+                    renderMode: 'universal'
+                };
+                content = content.replace(
+                  /<%= JSON\.stringify\(options, 4\) %>/g,
+                  JSON.stringify(options, null, 4)
+                );
+                fs.writeFileSync(inklinePath, content);
+                console.log('✅ Patched inkline.mjs with static config');
             }
-        ]
+        }
     },
 
     inkline: {
         globals: {
             color: 'light',
             colorMode: 'light',
-            colorModeStrategy: null
+            colorModeStrategy: null,
+            renderMode: 'universal'
         }
     },
 
