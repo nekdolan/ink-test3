@@ -10,9 +10,9 @@ function isMobile() {
   return /android|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(userAgent);
 }
 
-const { data: doc } = await useAsyncData(route.path, () => {
-  return queryCollection('videos').path(route.path).first();
-})
+// const { data: doc } = await useAsyncData(route.path, () => {
+//   return queryCollection('videos').path(route.path).first();
+// })
 
 const imageModal = ref(false);
 watch(() => imageModalSrc.value, () => {
@@ -35,16 +35,17 @@ watch(() => imageModal.value, () => {
 </script>
 <template>
   <IContainer fluid>
-    <IContainer v-if="doc">
-      <h1 class="d5 _margin-top:3 _margin-bottom:2 _text-align:center">{{ doc.title }}</h1>
-      <div class="_embed:16:9!">
-        <iframe :src="`https://rumble.com/embed/${doc.vid}/?pub=4`"></iframe>
-      </div>
-      <ContentRenderer :value="doc" class="content-doc" />
-      <div>
-        Uploaded: {{ formatDate(doc.date) }}
-      </div>
-    </IContainer>
+    TEST
+<!--    <IContainer v-if="doc">-->
+<!--      <h1 class="d5 _margin-top:3 _margin-bottom:2 _text-align:center">{{ doc.title }}</h1>-->
+<!--      <div class="_embed:16:9!">-->
+<!--        <iframe :src="`https://rumble.com/embed/${doc.vid}/?pub=4`"></iframe>-->
+<!--      </div>-->
+<!--      <ContentRenderer :value="doc" class="content-doc" />-->
+<!--      <div>-->
+<!--        Uploaded: {{ formatDate(doc.date) }}-->
+<!--      </div>-->
+<!--    </IContainer>-->
     <IModal v-model="imageModal" size="lg">
       <template #header> Image Preview </template>
       <NuxtImg densities="1x" :src="imageModalSrc || imageModalSrcReal" class="_image:responsive" />
