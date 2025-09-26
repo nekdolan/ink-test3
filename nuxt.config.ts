@@ -11,7 +11,7 @@ export default defineNuxtConfig({
         '@nuxt/content',
         '@nuxt/image'
     ],
-    compatibilityDate: '2025-07-15',
+    compatibilityDate: '2024-08-29',
 
     devServer: {
         port: 3004
