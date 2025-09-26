@@ -29,29 +29,36 @@ const props = defineProps(['screenType']);
 function isPathUrl(path = '') {
   return path.startsWith('http');
 }
+const emit = defineEmits(['close']);
 </script>
 
 <template>
   <ISidebar color="dark" :class="props.screenType">
     <INav vertical size="md">
       <ICollapsible
-        v-model="open"
-        color="transparent"
-        size="md"
-        :key="category.id"
-        v-for="category in categories"
+          v-model="open"
+          color="transparent"
+          size="md"
+          :key="category.id"
+          v-for="category in navbar"
       >
         <ICollapsibleItem :title="category.label" :name="category.id">
           <INavItem
-            :active="route.path.endsWith(item.uri)"
-            :to="isPathUrl(item.uri) ? undefined : item.uri"
-            :href="isPathUrl(item.uri) ? item.uri : undefined"
-            :target="isPathUrl(item.uri) ? '_blank' : undefined"
-            :key="item.uri"
-            v-for="item in category.items"
+              :active="route.path === item.uri"
+              :to="isPathUrl(item.uri) ? undefined : item.uri"
+              :href="isPathUrl(item.uri) ? item.uri : undefined"
+              :target="isPathUrl(item.uri) ? '_blank' : undefined"
+              :key="item.uri"
+              v-for="item in category.items"
           > {{ item.label }} </INavItem>
         </ICollapsibleItem>
       </ICollapsible>
+      <nuxt-link to="/helping" @click="emit('close')" class="_max-width:50%">
+        <nuxt-img loading="lazy" src="/images/buttons/btn_donate.jpg" class="_margin-top:1 _image:fluid" />
+      </nuxt-link>
+      <nuxt-link to="/newslettersignup" @click="emit('close')" class="_max-width:50%">
+        <nuxt-img loading="lazy" src="/images/buttons/btn_newsletter.jpg" class="_margin-top:1 _image:fluid" />
+      </nuxt-link>
     </INav>
   </ISidebar>
 </template>
